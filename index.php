@@ -2,6 +2,7 @@
 <head>
     <meta charset="UTF-8"/>
     <script src="video_stat_gathering.js"></script>
+    <script src="colorTempToRGB.js"></script>
 </head>
 <body>
 <style>
@@ -27,21 +28,20 @@ var func = function() {
     //Enlarging progressBar width
     progressBar.style.width = video.offsetWidth;
     progressBar.style.height = "20px";
+    amplitude = 20000;
     setInterval(function() {
         stat.gatherStatistic();
         var data = stat.getInner();
         //Drawing
         ctx.clearRect(0, 0, progressBar.width, progressBar.height);
-        console.log( stat.duration );
         for (var i=0; i<stat.duration; i++) {
             if (data[i] !== undefined) {
-//                var r_value = 10 * data[i];
-//                var g_value = ((data[i]>10) ? 255 - (10*data[i]) : 255);
                 var max = stat.getMax();
-                var r_value = 255 - 255*( data[i] / max);
-                r_value = Math.floor(r_value);
-                var g_value = r_value;
-                var b_value = r_value;
+                var ratio = data[i] / max;
+                var rgb = colorTemperatureToRGB( amplitude * (1 - ratio) );
+                var r_value = rgb.r;
+                var g_value = rgb.g;
+                var b_value = rgb.b;
                 ctx.fillStyle = "rgb(" + r_value + "," + g_value + "," + b_value + ")";
                 ctx.fillRect(i, 0, 1, progressBar.height);
             }
