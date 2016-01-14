@@ -1,6 +1,7 @@
 var VideoStatGatherer = function(video) {
     this.inner = {};
     this.video = video;
+    this.duration = Math.round(video.duration);
 };
 VideoStatGatherer.prototype.increaseInner = function(second) {
     if(this.inner[second] == undefined) {
