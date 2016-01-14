@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
+    <script src="hsvtorgb.js"></script>
     <script src="video_stat_gathering.js"></script>
     <script src="colorTempToRGB.js"></script>
 </head>
@@ -38,7 +39,8 @@ var func = function() {
             if (data[i] !== undefined) {
                 var max = stat.getMax();
                 var ratio = data[i] / max;
-                var rgb = colorTemperatureToRGB( amplitude * (1 - ratio) );
+                //var rgb = colorTemperatureToRGB( amplitude * (1 - ratio) );
+                var rgb = HSVtoRGB((1 - ratio), 1, 1);
                 var r_value = rgb.r;
                 var g_value = rgb.g;
                 var b_value = rgb.b;
