@@ -35,9 +35,14 @@ var func = function() {
         console.log( stat.duration );
         for (var i=0; i<stat.duration; i++) {
             if (data[i] !== undefined) {
-                var r_value = 10 * data[i];
-                var g_value = ((data[i]>10) ? 255 - (10*data[i]) : 255);
-                ctx.fillStyle = "rgb(" + r_value + "," + g_value + ",0)";
+//                var r_value = 10 * data[i];
+//                var g_value = ((data[i]>10) ? 255 - (10*data[i]) : 255);
+                var max = stat.getMax();
+                var r_value = 255 - 255*( data[i] / max);
+                r_value = Math.floor(r_value);
+                var g_value = r_value;
+                var b_value = r_value;
+                ctx.fillStyle = "rgb(" + r_value + "," + g_value + "," + b_value + ")";
                 ctx.fillRect(i, 0, 1, progressBar.height);
             }
         }
